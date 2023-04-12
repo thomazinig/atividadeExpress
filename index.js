@@ -33,17 +33,18 @@ app.post("/alunos/novo", (req, res) => {
 
 });
 
-app.post("/alunos/deletar/:index", function (req, res) {
+app.delete("/alunos/deletar/:index", function (req, res) {
+    const fs = require('fs')
     const { index } = req.params;
-    alunos.alunos.splice(index, 1);
+    alunos.deletar(index)
     if (index === undefined || index >= alunos.alunos.length) {
         res.status(404).json({ message: "Usuário não encontrado" });
 
-    } else { res.send(alunos.alunos); }
+    } else { res.send(alunos.alunos)}
 
 
 })
-app.post("/alunos/atualizar/:index", function (req, res) {
+app.put("/alunos/atualizar/:index", function (req, res) {
     const { nome, media } = req.body;
     const { index } = req.params;
 
@@ -51,8 +52,7 @@ app.post("/alunos/atualizar/:index", function (req, res) {
         res.status(404).json({ message: "Usuário não encontrado" });
 
     } else {
-        alunos.alunos[index].nome = nome;
-        alunos.alunos[index].media = media;
+        alunos.atualizar(index,nome,media)
         res.send(alunos.alunos);
     }
 

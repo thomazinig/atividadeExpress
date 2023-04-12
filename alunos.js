@@ -34,4 +34,32 @@ function filtrarPorMeida(media) {
     return alunosMedia;
 }
 
-module.exports = {alunos,filtrarPorNome,filtrarPorMeida};
+function deletar(index) {
+    const fs = require('fs')
+    alunos.splice(index, 1);
+    fs.writeFile('db.json', JSON.stringify(alunos), ()=>{
+        console.log("funcinando")
+    })
+
+
+}
+function adicionar(nome, media) {
+    const adicionarAluno = {
+        nome: nome,
+        media: media
+    }
+    alunos.push(adicionarAluno)
+}
+
+function atualizar(index,nome,media) {
+    const fs = require('fs')
+    alunos[index].nome = nome;
+    alunos[index].media = media;
+    fs.writeFile('db.json', JSON.stringify(alunos), ()=>{
+        console.log("funcinando")
+    })
+
+
+}
+
+module.exports = { alunos, filtrarPorNome, filtrarPorMeida, deletar,adicionar,atualizar };
